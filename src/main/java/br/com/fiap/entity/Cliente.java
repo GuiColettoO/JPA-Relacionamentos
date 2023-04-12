@@ -31,9 +31,7 @@ public class Cliente {
 	
 	public Cliente() {}
 	
-	public Cliente(Integer codigo, String cliente, Calendar nascimento) {
-		super();
-		this.codigo = codigo;
+	public Cliente(String cliente, Calendar nascimento) {
 		this.cliente = cliente;
 		this.nascimento = nascimento;
 	}

@@ -7,26 +7,82 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="TB_PRODUTO")
-@SequenceGenerator(name="produto", sequenceName = "SQ_TB_PRODUTO", allocationSize = 1)
+@Table(name="TB_PEDIDO")
+@SequenceGenerator(name="pedido", sequenceName = "SQ_TB_PEDIDO", allocationSize = 1)
 public class Pedido {
 	
 	@Id
-	@Column(name="cd_produto")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produto")
+	@Column(name="cd_pedido")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pedido")
 	private Integer codigo;
 	
-	@Column(name="nm_produto", nullable = false, length = 80)
-	private String produto;
+	@Temporal(TemporalType.DATE)
+	@Column(name="dt_pedido")
+	private Calendar dataPedido;
 	
+	public NotaFiscal getNota() {
+		return nota;
+	}
+
+	public void setNota(NotaFiscal nota) {
+		this.nota = nota;
+	}
+
+	@Column(name="vl_pedido", precision = 10)
 	private Float valor;
 	
-	private int estoque;
+	@Column(name="cd_cliente", precision = 10)
+	private int numeroCliente;
+	
+	@OneToOne(mappedBy = "pedido")
+	private NotaFiscal nota;
+	
+	public Pedido() {}
+
+	public Pedido(Calendar dataPedido, Float valor) {
+		this.dataPedido = dataPedido;
+		this.valor = valor;
+	}
+
+	public Integer getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
+
+	public Calendar getDataPedido() {
+		return dataPedido;
+	}
+
+	public void setDataPedido(Calendar dataPedido) {
+		this.dataPedido = dataPedido;
+	}
+
+	public Float getValor() {
+		return valor;
+	}
+
+	public void setValor(Float valor) {
+		this.valor = valor;
+	}
+
+	public int getNumeroCliente() {
+		return numeroCliente;
+	}
+
+	public void setNumeroCliente(int numeroCliente) {
+		this.numeroCliente = numeroCliente;
+	}
+
+	
 	
 }
